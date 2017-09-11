@@ -12,6 +12,8 @@ namespace nnn1
 {
     public partial class Form1 : Form
     {
+        int x;
+        int y;
         public Form1()
         {
             InitializeComponent();
@@ -58,12 +60,19 @@ namespace nnn1
         private void pictureBox_MouseMove(object sender, MouseEventArgs e)
         {
             if (pictureBox.Image != null)
+            {
                 Cursor.Current = Cursors.Cross;
+                x = e.X;
+                y = e.Y;
+            }
+
         }
 
         private void pictureBox_Click(object sender, EventArgs e)
         {
+            Color c = ((Bitmap)pictureBox.Image).GetPixel(x, y);
 
+            labelColor.BackColor = c;
         }
 
         private void label1_Click(object sender, EventArgs e)
