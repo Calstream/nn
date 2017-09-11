@@ -48,5 +48,32 @@ namespace nnn1
                 //imExists = true;
             }
         }
+
+        private void pictureBox_MouseEnter(object sender, EventArgs e)
+        {
+            if (pictureBox.Image != null)
+                Cursor.Current = Cursors.Cross;
+        }
+
+        private void pictureBox_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (pictureBox.Image != null)
+                Cursor.Current = Cursors.Cross;
+        }
+
+        private void pictureBox_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+            Label l = sender as Label;
+            DialogResult result = colorDialog1.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                l.BackColor = colorDialog1.Color;
+            }
+        }
     }
 }
