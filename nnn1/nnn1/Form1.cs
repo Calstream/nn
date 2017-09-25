@@ -110,34 +110,34 @@ namespace nnn1
 
         private void bin_Click(object sender, EventArgs e)
         {
+
             int t = (int)numericUpDown_tr.Value;
             int blue = labelColor.BackColor.B;
             int green = labelColor.BackColor.G;
             int red = labelColor.BackColor.R;
             Bitmap bmp = pictureBox.Image as Bitmap;
-
             Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
-            System.Drawing.Imaging.BitmapData bmpData =
-                bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite,
-                bmp.PixelFormat);
+            System.Drawing.Imaging.BitmapData bmpData = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);
 
             // Get the address of the first line.
             IntPtr ptr = bmpData.Scan0;
 
             // Declare an array to hold the bytes of the bitmap.
-            int bytes = Math.Abs(bmpData.Stride) * bmp.Height;
-
-            System.Runtime.InteropServices.Marshal.Copy(ptr, temp, 0, bytes);
-
+            int bytes = bmpData.Stride * bmp.Height;
             byte[] rgbValues = new byte[bytes];
-            original.CopyTo(rgbValues, 0);
-            
-            int count = 0;
-           
+            //byte[] r = new byte[bytes / 3];
+            //byte[] g = new byte[bytes / 3];
+            //byte[] b = new byte[bytes / 3];
 
-            for (int column = 0; column < h; column++)
+            // Copy the RGB values into the array.
+            System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
+
+            int count = 0;
+            int stride = bmpData.Stride;
+
+            for (int column = 0; column < bmpData.Height; column++)
             {
-                for (int row = 0; row < w; row++)
+                for (int row = 0; row < bmpData.Width; row++)
                 {
                     int bi = (column * stride) + (row * 3);
                     int gi = bi + 1;
@@ -169,15 +169,13 @@ namespace nnn1
                         continue;
                     }
                     else rgbValues[ri] = 255;
-               
+
                     count++;
                 }
             }
             System.Runtime.InteropServices.Marshal.Copy(rgbValues, 0, ptr, bytes);
-
             // Unlock the bits.
             bmp.UnlockBits(bmpData);
-            pictureBox.Image = bmp;
             pictureBox.Refresh();
         }
 
