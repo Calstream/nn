@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.IO;
 
 namespace nnn1
 {
@@ -17,9 +18,10 @@ namespace nnn1
         byte[] original;
         byte[] temp;
         int bytes;
-        int stride;
         int w;
         int h;
+        byte[] rgbValues;
+        int stride;
         public Form1()
         {
             InitializeComponent();
@@ -51,6 +53,7 @@ namespace nnn1
                 Bitmap bmp = pictureBox.Image as Bitmap;
                 w = bmp.Width;
                 h = bmp.Height;
+                
                 Rectangle rect = new Rectangle(0, 0, w, h);
                 System.Drawing.Imaging.BitmapData bmpData =
                     bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite,
@@ -118,22 +121,19 @@ namespace nnn1
             Bitmap bmp = pictureBox.Image as Bitmap;
             Rectangle rect = new Rectangle(0, 0, bmp.Width, bmp.Height);
             System.Drawing.Imaging.BitmapData bmpData = bmp.LockBits(rect, System.Drawing.Imaging.ImageLockMode.ReadWrite, bmp.PixelFormat);
-
+            stride = bmpData.Stride;
             // Get the address of the first line.
             IntPtr ptr = bmpData.Scan0;
 
             // Declare an array to hold the bytes of the bitmap.
             int bytes = bmpData.Stride * bmp.Height;
-            byte[] rgbValues = new byte[bytes];
-            //byte[] r = new byte[bytes / 3];
-            //byte[] g = new byte[bytes / 3];
-            //byte[] b = new byte[bytes / 3];
+            rgbValues = new byte[bytes];
 
             // Copy the RGB values into the array.
             System.Runtime.InteropServices.Marshal.Copy(ptr, rgbValues, 0, bytes);
 
             int count = 0;
-            int stride = bmpData.Stride;
+           
 
             for (int column = 0; column < bmpData.Height; column++)
             {
@@ -189,7 +189,14 @@ namespace nnn1
             SaveFileDialog sfd = new SaveFileDialog();
             sfd.Title = "Save";
             sfd.Filter = "Bitmap|*.bmp";
+            DialogResult result = sfd.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                string filepath = sfd.FileName;
+                pictureBox.Image.Save(filepath);
+            }
         }
+    
 
         private void openTextFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -219,6 +226,33 @@ namespace nnn1
             // Unlock the bits.
             bmp.UnlockBits(bmpData);
             pictureBox.Refresh();
+        }
+
+        private void saveTextFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog sfd = new SaveFileDialog();
+            sfd.Title = "Save";
+            sfd.Filter = "Binary File|*.bin";
+            DialogResult result = sfd.ShowDialog();
+            if (result == DialogResult.OK)
+            {
+                int ind = 0;
+                using (FileStream fs2 = new FileStream(sfd.FileName, FileMode.OpenOrCreate))
+                {
+                    using (BinaryWriter r = new BinaryWriter(fs2))
+                    {
+                        r.Write(w);
+                        r.Write(h);
+                        for (int column = 0; column < h; column++)
+                            for (int row = 0; row < w; row++)
+                            {
+                                ind = column * stride + row * 3;
+                                r.Write(rgbValues[ind]);
+                            }
+                                r.Flush();
+                    }
+                }
+            }
         }
     }
 }

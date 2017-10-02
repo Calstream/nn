@@ -33,14 +33,14 @@
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.openTextFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveTextFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.bin = new System.Windows.Forms.ToolStripMenuItem();
+            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorDialog1 = new System.Windows.Forms.ColorDialog();
             this.labelColor = new System.Windows.Forms.Label();
             this.label_tr = new System.Windows.Forms.Label();
             this.numericUpDown_tr = new System.Windows.Forms.NumericUpDown();
-            this.undoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown_tr)).BeginInit();
@@ -76,7 +76,7 @@
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.openToolStripMenuItem,
             this.saveToolStripMenuItem,
-            this.openTextFileToolStripMenuItem});
+            this.saveTextFileToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -84,23 +84,23 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open Image...";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save Image...";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
-            // openTextFileToolStripMenuItem
+            // saveTextFileToolStripMenuItem
             // 
-            this.openTextFileToolStripMenuItem.Name = "openTextFileToolStripMenuItem";
-            this.openTextFileToolStripMenuItem.Size = new System.Drawing.Size(157, 22);
-            this.openTextFileToolStripMenuItem.Text = "Open Text File...";
-            this.openTextFileToolStripMenuItem.Click += new System.EventHandler(this.openTextFileToolStripMenuItem_Click);
+            this.saveTextFileToolStripMenuItem.Name = "saveTextFileToolStripMenuItem";
+            this.saveTextFileToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+            this.saveTextFileToolStripMenuItem.Text = "Save To File...";
+            this.saveTextFileToolStripMenuItem.Click += new System.EventHandler(this.saveTextFileToolStripMenuItem_Click);
             // 
             // editToolStripMenuItem
             // 
@@ -115,9 +115,16 @@
             // bin
             // 
             this.bin.Name = "bin";
-            this.bin.Size = new System.Drawing.Size(152, 22);
+            this.bin.Size = new System.Drawing.Size(115, 22);
             this.bin.Text = "Binarize";
             this.bin.Click += new System.EventHandler(this.bin_Click);
+            // 
+            // undoToolStripMenuItem
+            // 
+            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
+            this.undoToolStripMenuItem.Size = new System.Drawing.Size(115, 22);
+            this.undoToolStripMenuItem.Text = "Undo";
+            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
             // 
             // labelColor
             // 
@@ -155,13 +162,6 @@
             0,
             0});
             // 
-            // undoToolStripMenuItem
-            // 
-            this.undoToolStripMenuItem.Name = "undoToolStripMenuItem";
-            this.undoToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
-            this.undoToolStripMenuItem.Text = "Undo";
-            this.undoToolStripMenuItem.Click += new System.EventHandler(this.undoToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -197,7 +197,7 @@
         private System.Windows.Forms.Label labelColor;
         private System.Windows.Forms.Label label_tr;
         private System.Windows.Forms.NumericUpDown numericUpDown_tr;
-        private System.Windows.Forms.ToolStripMenuItem openTextFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveTextFileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem undoToolStripMenuItem;
     }
 }
