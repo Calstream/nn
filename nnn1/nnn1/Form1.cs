@@ -167,9 +167,10 @@ namespace nnn1
             sfd.Filter = "Bitmap|*.bmp";
         }
 
-        private void openTextFileToolStripMenuItem_Click(object sender, EventArgs e)
+        private void rescaleToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            rescale rf = new rescale();
+            rf.Show();
         }
     }
 }
